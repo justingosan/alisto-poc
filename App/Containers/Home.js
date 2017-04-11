@@ -21,7 +21,7 @@ class Home extends React.Component {
     // 
     componentDidMount() {
         this._interval = setInterval(() => {
-            if (parseInt(moment().format('mm')) % 15 === 0) {
+            if (parseInt(moment().format('mm')) % 1 === 0) {
                 this.props.generateCode();
             } else {
 

@@ -1,7 +1,7 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
 
-const codeApi = (baseURL = 'http://localhost:3000') => {
+const codeApi = (baseURL = 'http://192.168.1.206:3000') => {
     const api = apisauce.create({
         // base URL is read from the "constructor"
         baseURL,

@@ -32,7 +32,7 @@ export default (rootReducer, rootSaga) => {
         // silence these saga-based messages
         // create the logger
         const logger = createLogger({
-            predicate: (getState, {type}) => USE_LOGGING
+            predicate: (getState, {type}) => USE_LOGGING && type !== 'GENERATE_CODE'
         })
         middleware.push(logger)
     }
