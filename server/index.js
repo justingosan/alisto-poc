@@ -25,6 +25,8 @@ app.post('/alisto', (req, res) => {
         alisto.insert(i)
     })
 
+    console.log('POSTED')
+
     res.status(201).send('ok')
 });
 
