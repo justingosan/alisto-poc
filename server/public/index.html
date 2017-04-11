@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Alisto Server</title>
+    </head>
+    <style type="text/css" media="screen">
+        td {
+            text-align: center;
+        }
+    </style>
+    <body>
+        <table width="100%">
+            <caption>Alisto Server</caption>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Code Time In</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="moment.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            $.get('/alisto').then((data)=>{
+                console.log(data);
+                for(var i in data){
+                    var d = data[i]
+                    var dp = moment(d.time).format('MMMM DD, h:mm:ss a');
+                    $('tbody').prepend(`<tr><td>${d.name}</td><td>${dp}</td></tr>`);
+                }
+            }, (error)=>{
+                console.error(error);
+            })
+        </script>
+    </body>
+</html>

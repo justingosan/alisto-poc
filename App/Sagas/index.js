@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga'
+import { takeLatest } from 'redux-saga/effects'
 import API from '../Services/Api'
 import FixtureAPI from '../Services/FixtureApi'
 import DebugConfig from '../Config/DebugConfig'
@@ -7,6 +7,7 @@ import DebugConfig from '../Config/DebugConfig'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
+import { CodeTypes } from '../Redux/CodeRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 
@@ -14,6 +15,7 @@ import { OpenScreenTypes } from '../Redux/OpenScreenRedux'
 
 import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
+import { saveCode, sendCode } from './CodeSagas'
 import { getUserAvatar } from './GithubSagas'
 import { openScreen } from './OpenScreenSagas'
 
@@ -25,14 +27,16 @@ const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 
-export default function * root () {
-  yield [
-    // some sagas only receive an action
-    takeLatest(StartupTypes.STARTUP, startup),
-    takeLatest(LoginTypes.LOGIN_REQUEST, login),
-    takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
+export default function* root() {
+    yield[
+        // some sagas only receive an action
+        takeLatest(StartupTypes.STARTUP, startup),
+        takeLatest(LoginTypes.LOGIN_REQUEST, login),
+        takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
 
-    // some sagas receive extra parameters in addition to an action
-    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
-  ]
+        // some sagas receive extra parameters in addition to an action
+        // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
+        takeLatest(CodeTypes.ENTER_CODE, saveCode),
+        takeLatest(CodeTypes.SEND_CODE, sendCode, API.codeApi())
+    ]
 }
