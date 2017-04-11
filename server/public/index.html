@@ -28,7 +28,7 @@
                 console.log(data);
                 for(var i in data){
                     var d = data[i]
-                    var dp = moment(d.time).format('MMMM DD, h:mm:ss a');
+                    var dp = moment(d.time).format('h:mm:ss a -- MMMM DD');
                     $('tbody').prepend(`<tr><td>${d.name}</td><td>${dp}</td></tr>`);
                 }
             }, (error)=>{
